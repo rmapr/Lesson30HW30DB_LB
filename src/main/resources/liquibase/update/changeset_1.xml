@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog logicalFilePath="db.changelog-1.0.xml"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <!-- Create table Homework -->
+    <changeSet author="R.Prystynskyi" id="createTableHomework">
+        <createTable tableName="Homework">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="description" type="VARCHAR(1024)"/>
+        </createTable>
+    </changeSet>
+
+    <!--    insert data into Homework-->
+        <changeSet author="R.Prystynskyi" id="insert_homework1">
+            <insert tableName="Homework">
+                <column name="name" value="Math"/>
+                <column name="description" value="Task 1, 2"/>
+            </insert>
+        </changeSet>
+    <changeSet author="R.Prystynskyi" id="insert_homework2">
+        <insert tableName="Homework">
+            <column name="name" value="Physics"/>
+            <column name="description" value="Task 3, 4"/>
+        </insert>
+    </changeSet>
+
+    <!-- Create table Lesson -->
+    <changeSet author="R.Prystynskyi" id="createTableLesson">
+        <createTable tableName="Lesson">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="updatedAt" type="TIMESTAMP"/>
+            <column name="homework_id" type="int">
+                <constraints nullable="false" foreignKeyName="fk_lesson_homework" references="homework(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <!--    insert data into Lesson-->
+    <changeSet author="R.Prystynskyi" id="insert_Lesson1">
+        <insert tableName="Lesson">
+            <column name="name" value="Math"/>
+            <column name="updatedAt" value="2023-07-11 00:00:00"/>
+            <column name="homework_id" value="1"/>
+        </insert>
+    </changeSet>
+    <changeSet author="R.Prystynskyi" id="insert_Lesson2">
+        <insert tableName="Lesson">
+            <column name="name" value="Physics"/>
+            <column name="updatedAt" value="2023-07-12 00:00:00"/>
+            <column name="homework_id" value="2"/>
+        </insert>
+    </changeSet>
+
+    <!-- Create table Schedule -->
+    <changeSet author="R.Prystynskyi" id="createTableSchedule">
+        <createTable tableName="Schedule">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="updatedAt" type="TIMESTAMP"/>
+            <column name="lessons" type="int"/>
+        </createTable>
+    </changeSet>
+
+    <!--    insert data into Schedule-->
+    <changeSet author="R.Prystynskyi" id="insert_Schedule1">
+        <insert tableName="Schedule">
+            <column name="name" value="Math"/>
+            <column name="updatedAt" value="2023-07-23 11:11:13"/>
+            <column name="lessons" value="1"/>
+        </insert>
+    </changeSet>
+    <changeSet author="R.Prystynskyi" id="insert_Schedule2">
+        <insert tableName="Schedule">
+            <column name="name" value="Physics"/>
+            <column name="updatedAt" value="2023-07-23 10:20:11"/>
+            <column name="lessons" value="2"/>
+        </insert>
+    </changeSet>
+
+    <!-- Create table Lesson_Schedule -->
+    <changeSet author="R.Prystynskyi" id="createTableLesson_Schedule">
+        <createTable tableName="Lesson_Schedule">
+            <column name="schedule_id" type="int">
+                <constraints nullable="false" foreignKeyName="fk_LessonSchedule_Schedule" references="Schedule(id)"/>
+            </column>
+            <column name="lessons" type="int">
+                <constraints nullable="false" foreignKeyName="fk_LessonSchedule_Lesson" references="Lesson(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <!--    insert data into Lesson_Schedule-->
+    <changeSet author="R.Prystynskyi" id="insert_Lesson_Schedule1_1">
+        <insert tableName="Lesson_Schedule">
+            <column name="schedule_id" value="1"/>
+            <column name="lessons" value="1"/>
+        </insert>
+    </changeSet>
+    <changeSet author="R.Prystynskyi" id="insert_Lesson_Schedule1_2">
+        <insert tableName="Lesson_Schedule">
+            <column name="schedule_id" value="1"/>
+            <column name="lessons" value="2"/>
+        </insert>
+    </changeSet>
+    <changeSet author="R.Prystynskyi" id="insert_Lesson_Schedule2_1">
+        <insert tableName="Lesson_Schedule">
+            <column name="schedule_id" value="2"/>
+            <column name="lessons" value="1"/>
+        </insert>
+    </changeSet>
+    <changeSet author="R.Prystynskyi" id="insert_Lesson_Schedule2_2">
+        <insert tableName="Lesson_Schedule">
+            <column name="schedule_id" value="2"/>
+            <column name="lessons" value="2"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>
